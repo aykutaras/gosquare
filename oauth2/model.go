@@ -1,5 +1,7 @@
 package oauth2
 
-type AccessTokenResponse struct {
-	AccessToken string `json:"access_token"`
+type Auth struct {
+	ClientId     string
+	ClientSecret string
+	AccessToken  string
 }
