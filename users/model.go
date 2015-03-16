@@ -1,25 +1,18 @@
 package users
 
+import "github.com/aykutaras/gosquare/base"
+
+type Users struct {
+	CheckIns UserCheckIns
+}
+
 type UserCheckIns struct {
-	Meta          Meta          `json:"meta"`
-	Notifications Notifications `json:"notifications"`
-	Response      Response      `json:"response"`
+	Meta          base.Meta          `json:"meta"`
+	Notifications base.Notifications `json:"notifications"`
+	Response      CheckInsResponse   `json:"response"`
 }
 
-type Meta struct {
-	Code         int    `json:"code"`
-	ErrorType    string `json:"errorType"`
-	ErrorDetails string `json:"errorDetails"`
-}
-
-type Notifications []Notification
-
-type Notification struct {
-	Type string      `json:"type"`
-	Item interface{} `json:"item"`
-}
-
-type Response struct {
+type CheckInsResponse struct {
 	CheckIns CheckIns `json:"checkins"`
 }
 
@@ -60,15 +53,77 @@ type Geo struct {
 }
 
 type User struct {
-	Id           string    `json:"id"`
-	FirstName    string    `json:"firstName"`
-	LastName     string    `json:"lastName"`
-	Gender       string    `json:"gender"`
-	Relationship string    `json:"relationship"`
-	Photo        UserPhoto `json:"photo"`
+	Id           string `json:"id"`
+	FirstName    string `json:"firstName"`
+	LastName     string `json:"lastName"`
+	Gender       string `json:"gender"`
+	Relationship string `json:"relationship"`
+	Photo        Icon   `json:"photo"`
 }
 
-type Venue interface {
+type Venue struct {
+	Id         string          `json:"id"`
+	Name       string          `json:"name"`
+	Contact    VenueContact    `json:"contact"`
+	Location   VenueLocation   `json:"location"`
+	Categories []VenueCategory `json:"categories`
+	Verified   bool            `json:"verified"`
+	Stats      VenueStats      `json:"stats"`
+	Url        string          `json:"url"`
+	Like       bool            `json:"like"`
+	VenuePage  VenuePage       `json:"venuePage"`
+	StoreId    string          `json:"storeId"`
+	Menu       VenueMenu       `json:"menu"`
+}
+
+type VenueContact struct {
+	Phone            string `json:"phone"`
+	FormattedPhone   string `json:"formattedPhone"`
+	Twitter          string `json:"twitter"`
+	Facebook         string `json:"facebook"`
+	FacebookUsername string `json:"facebookUsername"`
+	FacebookName     string `json:"facebookName"`
+}
+
+type VenueLocation struct {
+	Address          string   `json:"address"`
+	CrossStreet      string   `json:"crossStreet"`
+	Lat              float64  `json:"lat"`
+	Lon              float64  `json:"lon"`
+	PostalCode       string   `json:"postalCode"`
+	CC               string   `json:"cc"`
+	City             string   `json:"city"`
+	State            string   `json:"state"`
+	Country          string   `json:"country"`
+	FormattedAddress []string `json:"formattedAddress"`
+}
+
+type VenueCategory struct {
+	Id         string `json:"id"`
+	Name       string `json:"name"`
+	PluralName string `json:"pluralName"`
+	ShortName  string `json:"shortName"`
+	Icon       Icon   `json:"icon"`
+	Primary    bool   `json:"primary"`
+}
+
+type VenueStats struct {
+	CheckinsCount int `json:"checkinsCount"`
+	UsersCount    int `json:"usersCount"`
+	TipCount      int `json:"tipCount"`
+}
+
+type VenuePage struct {
+	Id string `json:"id"`
+}
+
+type VenueMenu struct {
+	Type        string `json:"type"`
+	Label       string `json:"label"`
+	Anchor      string `json:"anchor"`
+	Url         string `json:"url"`
+	MobileUrl   string `json:"mobileUrl"`
+	ExternalUrl string `json:"externalUrl"`
 }
 
 type Likes struct {
@@ -82,12 +137,29 @@ type UserGroup struct {
 	Items []User `json:"items"`
 }
 
-type UserPhoto struct {
+type Icon struct {
 	Prefix string `json:"prefix"`
 	Suffix string `json:"suffix"`
 }
 
-type Sticker interface {
+type Sticker struct {
+	Id             string         `json:"id"`
+	Name           string         `json:"name"`
+	Image          Image          `json:"image"`
+	StickerType    string         `json:"stickerType"`
+	PickerPosition PickerPosition `json:"pickerPosition"`
+	TeaseText      string         `json:"teaserText"`
+}
+
+type Image struct {
+	Prefix string `json:"prefix"`
+	Sizes  [2]int `json:"sizes"`
+	Name   string `json:"name"`
+}
+
+type PickerPosition struct {
+	Page  int `json:"page"`
+	Index int `json:"index"`
 }
 
 type Photos struct {
