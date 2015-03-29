@@ -3,7 +3,19 @@ package users
 import "github.com/aykutaras/gosquare/base"
 
 type Users struct {
-	CheckIns UserCheckIns
+	CheckIns UserCheckIns `json:"checkIns"`
+	Profile  Profile      `json:"profile"`
+	Friends  Friends      `json:"friends"`
+}
+
+type Profile struct {
+	Meta          base.Meta          `json:"meta"`
+	Notifications base.Notifications `json:"notifications"`
+	Response      UserResponse       `json:"response"`
+}
+
+type UserResponse struct {
+	User User `json:"user"`
 }
 
 type UserCheckIns struct {
@@ -14,6 +26,16 @@ type UserCheckIns struct {
 
 type CheckInsResponse struct {
 	CheckIns CheckIns `json:"checkins"`
+}
+
+type Friends struct {
+	Meta          base.Meta          `json:"meta"`
+	Notifications base.Notifications `json:"notifications"`
+	Response      FriendsResponse    `json:"response"`
+}
+
+type FriendsResponse struct {
+	Friends UserGroup `json:"friends"`
 }
 
 type CheckIns struct {
@@ -32,7 +54,7 @@ type CheckInItem struct {
 	ExactContextLine string   `json:"exactContextLine"`
 	With             []User   `json:"with"`
 	Venue            Venue    `json:"venue"`
-	Likes            Likes    `json:"likes"`
+	Likes            Group    `json:"likes"`
 	Like             bool     `json:"like"`
 	Sticker          Sticker  `json:"sticker"`
 	Photos           Photos   `json:"photos"`
@@ -53,18 +75,26 @@ type Geo struct {
 }
 
 type User struct {
-	Id           string `json:"id"`
-	FirstName    string `json:"firstName"`
-	LastName     string `json:"lastName"`
-	Gender       string `json:"gender"`
-	Relationship string `json:"relationship"`
-	Photo        Icon   `json:"photo"`
+	Id           string    `json:"id"`
+	FirstName    string    `json:"firstName"`
+	LastName     string    `json:"lastName"`
+	Photo        Icon      `json:"photo"`
+	Relationship string    `json:"relationship"`
+	Friends      Group     `json:"friends"`
+	Type         string    `json:"type"`
+	HomeCity     string    `json:"homeCity"`
+	Gender       string    `json:"gender"`
+	Contact      Contact   `json:"contact"`
+	Bio          string    `json:"bio"`
+	Followers    Group     `json:"followers"`
+	Following    Group     `json:"following"`
+	Venue        VenuePage `json:"venue"`
 }
 
 type Venue struct {
 	Id         string          `json:"id"`
 	Name       string          `json:"name"`
-	Contact    VenueContact    `json:"contact"`
+	Contact    Contact         `json:"contact"`
 	Location   VenueLocation   `json:"location"`
 	Categories []VenueCategory `json:"categories`
 	Verified   bool            `json:"verified"`
@@ -76,7 +106,8 @@ type Venue struct {
 	Menu       VenueMenu       `json:"menu"`
 }
 
-type VenueContact struct {
+type Contact struct {
+	Email            string `json:"email"`
 	Phone            string `json:"phone"`
 	FormattedPhone   string `json:"formattedPhone"`
 	Twitter          string `json:"twitter"`
@@ -126,7 +157,7 @@ type VenueMenu struct {
 	ExternalUrl string `json:"externalUrl"`
 }
 
-type Likes struct {
+type Group struct {
 	Count  int         `json:"count"`
 	Groups []UserGroup `json:"groups"`
 }

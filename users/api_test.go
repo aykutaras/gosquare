@@ -11,11 +11,31 @@ const (
 )
 
 func TestGetCheckIns(t *testing.T) {
-	api := &Users{}
+	api := new(UserCheckIns)
 
-	api.GetCheckIns(AccessToken)
+	api.Get(AccessToken)
 
-	if api.CheckIns.Meta.Code != 200 {
+	if api.Meta.Code != 200 {
+		t.Errorf("Has errors %v", api)
+	}
+}
+
+func TestGetProfile(t *testing.T) {
+	api := new(Profile)
+
+	api.Get(AccessToken)
+
+	if api.Meta.Code != 200 {
+		t.Errorf("Has errors %v", api)
+	}
+}
+
+func TestGetFriends(t *testing.T) {
+	api := new(Friends)
+
+	api.Get(AccessToken)
+
+	if api.Meta.Code != 200 {
 		t.Errorf("Has errors %v", api)
 	}
 }

@@ -11,7 +11,7 @@ import (
 const baseUri = "https://api.foursquare.com/v2/users"
 const version = "20150309"
 
-func (users *Users) GetCheckIns(accessToken string) {
+func (checkIns *UserCheckIns) Get(accessToken string) {
 	res, err := http.Get(fmt.Sprintf("%s/self/checkins?oauth_token=%s&v=%s&m=swarm", baseUri, accessToken, version))
 	if err != nil {
 		log.Fatal(err)
@@ -23,10 +23,47 @@ func (users *Users) GetCheckIns(accessToken string) {
 	}
 	res.Body.Close()
 
-	//checkIns := &UserCheckIns{}
-	if err := json.Unmarshal(byteCheckIns, &users.CheckIns); err != nil {
+	if err := json.Unmarshal(byteCheckIns, &checkIns); err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%s", users.CheckIns)
+	fmt.Printf("%s", checkIns)
+}
+
+func (profile *Profile) Get(accessToken string) {
+	res, err := http.Get(fmt.Sprintf("%s/self?oauth_token=%s&v=%s&m=foursquare", baseUri, accessToken, version))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	byteProfile, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	res.Body.Close()
+
+	if err := json.Unmarshal(byteProfile, &profile); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%s", profile)
+}
+
+func (friends *Friends) Get(accessToken string) {
+	res, err := http.Get(fmt.Sprintf("%s/self/friends?oauth_token=%s&v=%s&m=swarm", baseUri, accessToken, version))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	byteFriends, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	res.Body.Close()
+
+	if err := json.Unmarshal(byteFriends, &friends); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%s", friends)
 }
