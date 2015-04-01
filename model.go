@@ -1,42 +1,4 @@
-package users
-
-import "github.com/aykutaras/gosquare/base"
-
-type Users struct {
-	CheckIns UserCheckIns `json:"checkIns"`
-	Profile  Profile      `json:"profile"`
-	Friends  Friends      `json:"friends"`
-}
-
-type Profile struct {
-	Meta          base.Meta          `json:"meta"`
-	Notifications base.Notifications `json:"notifications"`
-	Response      UserResponse       `json:"response"`
-}
-
-type UserResponse struct {
-	User User `json:"user"`
-}
-
-type UserCheckIns struct {
-	Meta          base.Meta          `json:"meta"`
-	Notifications base.Notifications `json:"notifications"`
-	Response      CheckInsResponse   `json:"response"`
-}
-
-type CheckInsResponse struct {
-	CheckIns CheckIns `json:"checkins"`
-}
-
-type Friends struct {
-	Meta          base.Meta          `json:"meta"`
-	Notifications base.Notifications `json:"notifications"`
-	Response      FriendsResponse    `json:"response"`
-}
-
-type FriendsResponse struct {
-	Friends UserGroup `json:"friends"`
-}
+package gosquare
 
 type CheckIns struct {
 	Count int           `json:"count"`
@@ -91,21 +53,6 @@ type User struct {
 	Venue        VenuePage `json:"venue"`
 }
 
-type Venue struct {
-	Id         string          `json:"id"`
-	Name       string          `json:"name"`
-	Contact    Contact         `json:"contact"`
-	Location   VenueLocation   `json:"location"`
-	Categories []VenueCategory `json:"categories`
-	Verified   bool            `json:"verified"`
-	Stats      VenueStats      `json:"stats"`
-	Url        string          `json:"url"`
-	Like       bool            `json:"like"`
-	VenuePage  VenuePage       `json:"venuePage"`
-	StoreId    string          `json:"storeId"`
-	Menu       VenueMenu       `json:"menu"`
-}
-
 type Contact struct {
 	Email            string `json:"email"`
 	Phone            string `json:"phone"`
@@ -114,47 +61,6 @@ type Contact struct {
 	Facebook         string `json:"facebook"`
 	FacebookUsername string `json:"facebookUsername"`
 	FacebookName     string `json:"facebookName"`
-}
-
-type VenueLocation struct {
-	Address          string   `json:"address"`
-	CrossStreet      string   `json:"crossStreet"`
-	Lat              float64  `json:"lat"`
-	Lon              float64  `json:"lon"`
-	PostalCode       string   `json:"postalCode"`
-	CC               string   `json:"cc"`
-	City             string   `json:"city"`
-	State            string   `json:"state"`
-	Country          string   `json:"country"`
-	FormattedAddress []string `json:"formattedAddress"`
-}
-
-type VenueCategory struct {
-	Id         string `json:"id"`
-	Name       string `json:"name"`
-	PluralName string `json:"pluralName"`
-	ShortName  string `json:"shortName"`
-	Icon       Icon   `json:"icon"`
-	Primary    bool   `json:"primary"`
-}
-
-type VenueStats struct {
-	CheckinsCount int `json:"checkinsCount"`
-	UsersCount    int `json:"usersCount"`
-	TipCount      int `json:"tipCount"`
-}
-
-type VenuePage struct {
-	Id string `json:"id"`
-}
-
-type VenueMenu struct {
-	Type        string `json:"type"`
-	Label       string `json:"label"`
-	Anchor      string `json:"anchor"`
-	Url         string `json:"url"`
-	MobileUrl   string `json:"mobileUrl"`
-	ExternalUrl string `json:"externalUrl"`
 }
 
 type Group struct {

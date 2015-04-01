@@ -1,4 +1,4 @@
-package base
+package gosquare
 
 type Meta struct {
 	Code         int    `json:"code"`
