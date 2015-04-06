@@ -33,6 +33,4 @@ func (checkIns *UserCheckIns) Get(accessToken string) {
 	if err := json.Unmarshal(byteCheckIns, &checkIns); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("%s", checkIns)
 }

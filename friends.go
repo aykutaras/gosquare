@@ -33,6 +33,4 @@ func (friends *Friends) Get(accessToken string) {
 	if err := json.Unmarshal(byteFriends, &friends); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("%s", friends)
 }

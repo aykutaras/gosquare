@@ -33,6 +33,4 @@ func (profile *Profile) Get(accessToken string) {
 	if err := json.Unmarshal(byteProfile, &profile); err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("%s", profile)
 }
